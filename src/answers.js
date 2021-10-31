@@ -46,7 +46,6 @@ export const Answers = () => {
               </button>
               <button className="btn answer-btn">
                 <NavLink to="/" className="answer-btn">
-                  {" "}
                   Ask Again
                 </NavLink>
               </button>
