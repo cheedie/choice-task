@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
+const windowGlobal = typeof window !== "undefined" && window;
+
 export const Answers = () => {
   const history = useHistory();
   const { answers, question } = history.location.state;
@@ -12,12 +14,11 @@ export const Answers = () => {
   const [displayPopularity, setDisplayPopularity] = useState(false);
 
   const popularityCheck = () => {
-    const popularity = JSON?.parse(localStorage?.getItem("popularity")).reduce(
-      function (acc, curr) {
-        return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
-      },
-      {}
-    );
+    const popularity = JSON?.parse(
+      windowGlobal.localStorage?.getItem("popularity")
+    ).reduce(function (acc, curr) {
+      return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+    }, {});
     setFrequency(popularity[question]);
     setDisplayPopularity(true);
   };
@@ -56,7 +57,7 @@ export const Answers = () => {
               })}
             </ol>
             {displayPopularity ? (
-              <p className="popularity-text">Popularity: {frequency}</p>
+              <p className="popularity-text">Popularity: {frequency} times</p>
             ) : null}
 
             <div className="answer-btn-container">

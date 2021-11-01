@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "./Alert";
 
+const windowGlobal = typeof window !== "undefined" && window;
+
 function Dashboard() {
   const [question, setQuestion] = useState("");
   const [alert, setAlert] = useState(false);
@@ -39,9 +41,9 @@ function Dashboard() {
   ];
   // to keep track of questions asked
   let questionsList =
-    localStorage?.getItem("popularity") === null
+    windowGlobal.localStorage?.getItem("popularity") === null
       ? []
-      : JSON?.parse(localStorage?.getItem("popularity"));
+      : JSON?.parse(windowGlobal.localStorage?.getItem("popularity"));
 
   const history = useHistory();
 
@@ -54,7 +56,7 @@ function Dashboard() {
     if (question === "" && input === "") {
       setAlert(true);
     } else {
-      localStorage?.setItem(
+      windowGlobal.localStorage?.setItem(
         "popularity",
         JSON?.stringify([...questionsList, question])
       );
