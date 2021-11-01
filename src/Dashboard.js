@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "./Alert";
-
-const windowGlobal = typeof window !== "undefined" && window;
 
 function Dashboard() {
   const [question, setQuestion] = useState("");
@@ -10,6 +8,8 @@ function Dashboard() {
   const [indexer, setIndexer] = useState(["newItem", "newItem", "newItem"]);
   const [answers, setAnswers] = useState([]);
   const [input, setInput] = useState("");
+  const [questionsList, setQuestionsList] = useState([]);
+  const [appWindow, setAppWindow] = useState(null);
 
   const alphabetArr = [
     "A",
@@ -40,10 +40,17 @@ function Dashboard() {
     "Z",
   ];
   // to keep track of questions asked
-  let questionsList =
-    windowGlobal.localStorage?.getItem("popularity") === null
-      ? []
-      : JSON?.parse(windowGlobal.localStorage?.getItem("popularity"));
+
+  useEffect(() => {
+    const windowGlobal = typeof window !== "undefined" && window;
+    setAppWindow(windowGlobal);
+
+    let questionsList =
+      window.localStorage?.getItem("popularity") === null
+        ? []
+        : JSON?.parse(window.localStorage?.getItem("popularity"));
+    setQuestionsList(questionsList);
+  }, []);
 
   const history = useHistory();
 
@@ -56,7 +63,7 @@ function Dashboard() {
     if (question === "" && input === "") {
       setAlert(true);
     } else {
-      windowGlobal.localStorage?.setItem(
+      appWindow.localStorage?.setItem(
         "popularity",
         JSON?.stringify([...questionsList, question])
       );
