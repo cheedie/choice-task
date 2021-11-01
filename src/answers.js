@@ -12,7 +12,7 @@ export const Answers = () => {
   const [displayPopularity, setDisplayPopularity] = useState(false);
 
   const popularityCheck = () => {
-    const popularity = JSON.parse(localStorage.getItem("popularity")).reduce(
+    const popularity = JSON?.parse(localStorage?.getItem("popularity")).reduce(
       function (acc, curr) {
         return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
       },

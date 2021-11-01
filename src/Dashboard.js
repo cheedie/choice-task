@@ -39,9 +39,9 @@ function Dashboard() {
   ];
   // to keep track of questions asked
   let questionsList =
-    localStorage.getItem("popularity") === null
+    localStorage?.getItem("popularity") === null
       ? []
-      : JSON.parse(localStorage.getItem("popularity"));
+      : JSON?.parse(localStorage?.getItem("popularity"));
 
   const history = useHistory();
 
@@ -54,9 +54,9 @@ function Dashboard() {
     if (question === "" && input === "") {
       setAlert(true);
     } else {
-      localStorage.setItem(
+      localStorage?.setItem(
         "popularity",
-        JSON.stringify([...questionsList, question])
+        JSON?.stringify([...questionsList, question])
       );
 
       history.push({
