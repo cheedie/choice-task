@@ -182,6 +182,13 @@ p {
 .popularity-btn:hover {
   background: #020826;
 }
+
+.popularity-text {
+  color: #f25042 !important;
+  font-weight: 700;
+  font-size: 1.25rem !important;
+  padding-top: 2rem;
+}
 .correct-option {
   color: green;
 }

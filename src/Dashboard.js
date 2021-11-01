@@ -41,7 +41,7 @@ function Dashboard() {
   let questionsList =
     localStorage.getItem("popularity") === null
       ? []
-      : localStorage.getItem("popularity");
+      : JSON.parse(localStorage.getItem("popularity"));
 
   const history = useHistory();
 
@@ -54,10 +54,15 @@ function Dashboard() {
     if (question === "" && input === "") {
       setAlert(true);
     } else {
-      questionsList = [questionsList, question];
-      localStorage.setItem("popularity", [questionsList]);
+      localStorage.setItem(
+        "popularity",
+        JSON.stringify([...questionsList, question])
+      );
 
-      history.push({ pathname: "/answer", state: answers });
+      history.push({
+        pathname: "/answer",
+        state: { answers: answers, question: question },
+      });
     }
   };
 
