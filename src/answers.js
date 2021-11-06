@@ -30,7 +30,7 @@ export const Answers = () => {
     if (history.location.state === undefined) {
       return history.push("/");
     }
-  }, []);
+  }, [history]);
 
   const answers = history.location.state?.answers;
   const question = history.location.state?.question;
