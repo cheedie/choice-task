@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
@@ -6,11 +6,9 @@ const windowGlobal = typeof window !== "undefined" && window;
 
 export const Answers = () => {
   const history = useHistory();
-  const { answers, question } = history.location.state;
+
   const [frequency, setFrequency] = useState(0);
-  const [correctOption, setCorrectOption] = useState(
-    answers[Math.floor(Math.random() * answers.length)]
-  );
+
   const [displayPopularity, setDisplayPopularity] = useState(false);
 
   const popularityCheck = () => {
@@ -24,9 +22,21 @@ export const Answers = () => {
   };
 
   const correctOptionToggle = () => {
-    let correctOption = answers[Math.floor(Math.random() * answers.length)];
+    let correctOption = answers[Math.floor(Math.random() * answers?.length)];
     setCorrectOption(correctOption);
   };
+
+  useEffect(() => {
+    if (history.location.state === undefined) {
+      return history.push("/");
+    }
+  }, []);
+
+  const answers = history.location.state?.answers;
+  const question = history.location.state?.question;
+  const [correctOption, setCorrectOption] = useState(
+    answers && answers[Math.floor(Math.random() * answers?.length)]
+  );
 
   return (
     <>
@@ -40,7 +50,7 @@ export const Answers = () => {
           <div className="form">
             <h5>Your Answer is :</h5>
             <ol type="A">
-              {answers.map((answer, index) => {
+              {answers?.map((answer, index) => {
                 return (
                   <React.Fragment key={index}>
                     <li
