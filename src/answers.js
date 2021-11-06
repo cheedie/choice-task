@@ -15,7 +15,7 @@ export const Answers = () => {
     const popularity = JSON?.parse(
       windowGlobal.localStorage?.getItem("popularity")
     ).reduce(function (acc, curr) {
-      return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+      return acc[curr] ? ++acc[curr] : (acc[curr] = 1);
     }, {});
     setFrequency(popularity[question]);
     setDisplayPopularity(true);
